@@ -120,3 +120,28 @@ resource "aws_default_route_table" "default-route-table" {
     Name = "${local.vpc_id}-image-delivery-service"
   }
 }
+
+#########################################
+########### Security Groups #############
+#########################################
+
+resource "aws_security_group" "security-group-image-delivery-service" {
+  name        = "public_sg"
+  description = "Security Group for Public Access"
+  vpc_id      = local.vpc_id
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
