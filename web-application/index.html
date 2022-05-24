@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="fontawesome-free-5.15.1/css/all.css" />
+    <title>Image Delivery Service</title>
+  </head>
+  <body>
+    <h1>Image Delivery Service</h1>
+    <p>
+      Search for an image
+      <input type="text" id="imgName" name="imgName" />
+    </p>
+    <button type="button" onclick="loadImage()">Find</button>
+    <div id="dropbox">
+      <form class="upload">
+        <input
+          id="fileSelector"
+          type="file"
+          name="fileName"
+          multiple
+          accept="image/*"
+          onchange="handleFiles(this.files)"
+        />
+        <div id="preview"></div>
+      </form>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
