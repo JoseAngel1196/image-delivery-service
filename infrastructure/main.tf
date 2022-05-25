@@ -8,14 +8,11 @@ module "networking" {
   private_cidrs    = [for i in range(1, 256, 2) : cidrsubnet(var.cidr_block, 8, i)]
 }
 
-module "security" {
-  source = "./security"
-}
-
 module "compute" {
-  source          = "./compute"
-  public_subnets  = module.networking.public_subnets
-  private_subnets = module.networking.private_subnets
+  source                = "./compute"
+  public_subnets        = module.networking.public_subnets
+  private_subnets       = module.networking.private_subnets
   public_security_group = module.networking.public_security_group
-  ssh_key_name    = module.security.ssh_key_name
+  public_key_path       = var.public_key_path
+  private_key_path = var.private_key_path
 }
