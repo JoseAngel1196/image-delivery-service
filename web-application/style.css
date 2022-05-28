@@ -1,35 +1,4 @@
-body {
-    text-align: center;
-    font-family: "Lato";
-}
-
-#dropbox {
-    height: 350px;
-    width: 350px;
-    margin: 20px auto;
-    border: 2px dashed #ccc;
-    border-radius: 20px;
-}
-
-#fileSelector {
-    display: none;
-}
-
-#dropbox.highlight {
-    border-color: purple;
-}
-
-#preview img {
-    width: 350px;
-    height: 350px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-
-button {
-    background-color: #e67e22;
-    border: 2px solid #cf6d17;
-    color: #fff;
-    font-size: 15px;
+.main {
+    width: 50%;
+    margin: 50px auto;
 }

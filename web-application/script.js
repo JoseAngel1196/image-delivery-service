@@ -1,74 +1,43 @@
-const fs = require("fs");
+// Global Parameters
+const webUrl = "http://localhost:8080/images";
+const apiUrl = "http://localhost:5000";
+const searchedImageEl = document.getElementById("searchedImage");
+const imgNotAvailableEl = document.getElementById("imgNotAvailable");
+const searchElementBtn = document.getElementById("searchImage");
+const imageNameInput = document.getElementById("imageName");
 
-let dropbox = document.getElementById("dropbox");
-["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
-  dropbox.addEventListener(eventName, preventDefaults, false);
-  document.body.addEventListener(eventName, preventDefaults, false);
-});
-
-["dragenter", "dragover"].forEach((eventName) => {
-  dropbox.addEventListener(eventName, highlight, false);
-});
-["dragleave", "drop"].forEach((eventName) => {
-  dropbox.addEventListener(eventName, unhighlight, false);
-});
-
-dropbox.addEventListener("drop", handleDrop, false);
-
-function preventDefaults(e) {
-  e.preventDefault();
-  e.stopPropagation();
+function initialize() {
+  searchedImageEl.style.display = "none";
+  imgNotAvailableEl.style.display = "none";
+  searchElementBtn.addEventListener("click", searchImage);
 }
 
-function highlight(e) {
-  dropbox.classList.add("highlight");
-}
+const request = async (imageNameVal) => {
+  return new Promise((resolve, reject) => {
+    fetch(`${apiUrl}/${imageNameVal}`)
+      .then((resp) => resolve(resp.json()))
+      .catch((err) => reject(err));
+  });
+};
 
-function unhighlight(e) {
-  dropbox.classList.remove("highlight");
-}
+const searchImage = async () => {
+  initialize();
+  const imageNameValue = imageNameInput.value;
 
-function handleDrop(e) {
-  var dt = e.dataTransfer;
-  var files = dt.files;
-  handleFiles(files);
-}
+  if (imageNameValue == "") return;
 
-function handleFiles(files) {
-  [...files].forEach(previewFile);
-}
-function loadImage() {
-  const name = document.getElementById("imgName").value;
-  console.log(name);
-  const files = fs.readdirSync("/images/");
-  console.log("Got files", files);
-  // addImage(url);
-}
+  const response = await request(imageNameValue);
+  const imageName = response["image_name"];
+  console.log("Got imageName", imageName);
 
-function addImage(name) {
-  if (name === "") {
-    alert("You should enter a name");
+  if (!Boolean(imageName)) {
+    imgNotAvailableEl.style.display = "block";
     return;
   }
-  let img = document.createElement("img");
-  img.src = src;
-  const parentNode = document.getElementById("preview");
-  if (parentNode.children[0] != null) {
-    parentNode.removeChild(parentNode.children[0]);
-  }
-  parentNode.appendChild(img);
-}
 
-function previewFile(file) {
-  let reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onloadend = () => {
-    let img = document.createElement("img");
-    img.src = reader.result;
-    const parentNode = document.getElementById("preview");
-    if (parentNode.children[0] != null) {
-      parentNode.removeChild(parentNode.children[0]);
-    }
-    parentNode.appendChild(img);
-  };
-}
+  const imgSrc = `${webUrl}/${imageName}`;
+  searchedImageEl.src = imgSrc;
+  searchedImageEl.style.display = "block";
+};
+
+initialize();
