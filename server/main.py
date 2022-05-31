@@ -15,7 +15,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get('/{image_name}', summary="Get at least one image")
+@app.get('/', summary="Health check")
+def get() -> None:
+    return {"ok": True}
+
+@app.get('/image/{image_name}', summary="Get at least one image")
 def get_images(image_name: str) -> Optional[str]:
     print('Got image name', image_name)
     

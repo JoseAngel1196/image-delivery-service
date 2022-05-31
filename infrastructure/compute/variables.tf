@@ -17,3 +17,7 @@ variable "public_key_path" {
 variable "private_key_path" {
   type = string
 }
+
+variable "instance_iam_name" {
+  type = string
+}

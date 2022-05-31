@@ -1,6 +1,6 @@
 output "public_subnets" {
   description = "public subnets without the nat gateway"
-  value       = [aws_subnet.public_subnet.*.id[1]]
+  value       = aws_subnet.public_subnet.*.id
 }
 
 output "private_subnets" {

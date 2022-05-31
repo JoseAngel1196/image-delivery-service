@@ -59,9 +59,10 @@ resource "aws_instance" "ec2-private-host-image-delivery-service" {
   subnet_id              = random_shuffle.private_subnet_ids.result[count.index]
   vpc_security_group_ids = [var.public_security_group]
   user_data = file("userdata.tpl")
+  iam_instance_profile = var.instance_iam_name
 
   tags = {
-    Name = "ec2-private-instance-image-delivery-service-${random_id.random_number.dec}"
+    Name = "ec2-private-instance-image-delivery-service"
   }
 }
 

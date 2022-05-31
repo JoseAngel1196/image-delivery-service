@@ -1,11 +1,19 @@
 module "networking" {
   source           = "./networking"
   cidr_block       = var.cidr_block
-  max_subnets      = 4
-  private_sn_count = 2
-  public_sn_count  = 2
+  max_subnets      = 2
+  private_sn_count = 1
+  public_sn_count  = 1
   public_cidrs     = [for i in range(2, 256, 2) : cidrsubnet(var.cidr_block, 8, i)]
   private_cidrs    = [for i in range(1, 256, 2) : cidrsubnet(var.cidr_block, 8, i)]
+}
+
+module "iam" {
+  source = "./iam"
+}
+
+module "s3" {
+  source = "./s3"
 }
 
 module "compute" {
@@ -15,4 +23,5 @@ module "compute" {
   public_security_group = module.networking.public_security_group
   public_key_path       = var.public_key_path
   private_key_path = var.private_key_path
+  instance_iam_name = module.iam.instance_iam_name
 }
