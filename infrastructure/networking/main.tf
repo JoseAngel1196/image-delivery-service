@@ -125,8 +125,8 @@ resource "aws_default_route_table" "default-route-table" {
 ########### Security Groups #############
 #########################################
 
-resource "aws_security_group" "security-group-image-delivery-service" {
-  name        = "public_sg"
+resource "aws_security_group" "security-group-instance-image-delivery-service" {
+  name        = "instance_sg"
   description = "Security Group for Public Access"
   vpc_id      = local.vpc_id
 
@@ -134,6 +134,25 @@ resource "aws_security_group" "security-group-image-delivery-service" {
     description = "SSH"
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "security-group-alb-image-delivery-service" {
+  name   = "alb_seg"
+  vpc_id = local.vpc_id
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

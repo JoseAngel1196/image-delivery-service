@@ -8,7 +8,7 @@ resource "aws_iam_role" "iam-image-delivery-service-role" {
         Action = "sts:AssumeRole"
         Effect = "Allow"
         Principal = {
-            Service = "ec2.amazonaws.com"
+          Service = "ec2.amazonaws.com"
         },
       },
     ]

@@ -8,5 +8,13 @@ output "private_subnets" {
 }
 
 output "public_security_group" {
-  value = aws_security_group.security-group-image-delivery-service.id
+  value = aws_security_group.security-group-instance-image-delivery-service.id
+}
+
+output "alb_security_group" {
+  value = aws_security_group.security-group-alb-image-delivery-service.id
+}
+
+output "vpc_id" {
+  value = local.vpc_id
 }

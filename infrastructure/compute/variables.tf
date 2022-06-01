@@ -21,3 +21,11 @@ variable "private_key_path" {
 variable "instance_iam_name" {
   type = string
 }
+
+variable "vpc_id" {
+  type = string
+}
+
+variable "alb_security_group" {
+  type = string
+}

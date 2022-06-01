@@ -1,5 +1,5 @@
 // Global Parameters
-const webUrl = "http://localhost:8080/images";
+const webUrl = "http://localhost:80/images";
 const apiUrl = "http://localhost:5000";
 const searchedImageEl = document.getElementById("searchedImage");
 const imgNotAvailableEl = document.getElementById("imgNotAvailable");
