@@ -29,3 +29,8 @@ variable "vpc_id" {
 variable "alb_security_group" {
   type = string
 }
+
+variable "image" {
+  description = "Name filter for EC2 AMI"
+  default     = "amzn-ami-hvm-*-x86_64-gp2"
+}

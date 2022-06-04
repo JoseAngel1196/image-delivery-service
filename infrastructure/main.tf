@@ -1,9 +1,9 @@
 module "networking" {
   source           = "./networking"
   cidr_block       = var.cidr_block
-  max_subnets      = 9
-  private_sn_count = 8
-  public_sn_count  = 1
+  max_subnets      = 12
+  private_sn_count = 6
+  public_sn_count  = 6
   public_cidrs     = [for i in range(2, 256, 2) : cidrsubnet(var.cidr_block, 8, i)]
   private_cidrs    = [for i in range(1, 256, 2) : cidrsubnet(var.cidr_block, 8, i)]
 }
