@@ -126,8 +126,8 @@ resource "aws_default_route_table" "default-route-table" {
 #########################################
 
 resource "aws_security_group" "security-group-instance-image-delivery-service" {
-  name        = "instance_sg"
-  description = "Security Group for Public Access"
+  name        = "web_application_sg"
+  description = "Security Group for Web Application"
   vpc_id      = local.vpc_id
 
   ingress {
@@ -153,13 +153,60 @@ resource "aws_security_group" "security-group-instance-image-delivery-service" {
   }
 }
 
-resource "aws_security_group" "security-group-alb-image-delivery-service" {
-  name   = "alb_seg"
+resource "aws_security_group" "security-group-application-server-image-delivery-service" {
+  name        = "application_server_sg"
+  description = "Security Group for Application Server"
+  vpc_id      = local.vpc_id
+
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 5000
+    to_port     = 5000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "security-group-alb-public-facing-image-delivery-service" {
+  name   = "alb_public_facing_seg"
   vpc_id = local.vpc_id
 
   ingress {
     from_port   = 80
     to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "security-group-alb-internal-image-delivery-service" {
+  name   = "alb_internal_seg"
+  vpc_id = local.vpc_id
+
+  ingress {
+    from_port   = 5000
+    to_port     = 5000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }

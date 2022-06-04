@@ -6,7 +6,7 @@ variable "private_subnets" {
   type = list(string)
 }
 
-variable "public_security_group" {
+variable "web_application_security_group" {
   type = string
 }
 
@@ -26,11 +26,14 @@ variable "vpc_id" {
   type = string
 }
 
-variable "alb_security_group" {
+variable "alb_public_security_group" {
   type = string
 }
 
-variable "image" {
-  description = "Name filter for EC2 AMI"
-  default     = "amzn-ami-hvm-*-x86_64-gp2"
+variable "application_server_security_group" {
+  type = string
+}
+
+variable "alb_internal_security_group" {
+  type = string
 }

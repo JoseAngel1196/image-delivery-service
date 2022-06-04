@@ -1,5 +1,5 @@
 output "public_subnets" {
-  description = "public subnets without the nat gateway"
+  description = "public subnets w/ the nat gateway"
   value       = aws_subnet.public_subnet.*.id
 }
 
@@ -7,12 +7,20 @@ output "private_subnets" {
   value = aws_subnet.private_subnet.*.id
 }
 
-output "public_security_group" {
+output "web_application_security_group" {
   value = aws_security_group.security-group-instance-image-delivery-service.id
 }
 
-output "alb_security_group" {
-  value = aws_security_group.security-group-alb-image-delivery-service.id
+output "application_server_security_group" {
+  value = aws_security_group.security-group-application-server-image-delivery-service.id
+}
+
+output "alb_public_security_group" {
+  value = aws_security_group.security-group-alb-public-facing-image-delivery-service.id
+}
+
+output "alb_internal_security_group" {
+  value = aws_security_group.security-group-alb-internal-image-delivery-service.id
 }
 
 output "vpc_id" {
