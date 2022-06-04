@@ -1,6 +1,6 @@
 // Global Parameters
-const webUrl = "http://localhost:80/images";
-const apiUrl = "http://localhost:5000";
+const webUrl = "PUBLIC_FACING_URL/images";
+const apiUrl = "PUBLIC_FACING_URL/api";
 const searchedImageEl = document.getElementById("searchedImage");
 const imgNotAvailableEl = document.getElementById("imgNotAvailable");
 const searchElementBtn = document.getElementById("searchImage");
@@ -14,7 +14,7 @@ function initialize() {
 
 const request = async (imageNameVal) => {
   return new Promise((resolve, reject) => {
-    fetch(`${apiUrl}/${imageNameVal}`)
+    fetch(`${apiUrl}/image/${imageNameVal}`)
       .then((resp) => resolve(resp.json()))
       .catch((err) => reject(err));
   });
