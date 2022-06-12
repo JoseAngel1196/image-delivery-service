@@ -27,5 +27,6 @@ module "compute" {
   instance_iam_name                 = module.iam.instance_iam_name
   alb_public_security_group         = module.networking.alb_public_security_group
   alb_internal_security_group       = module.networking.alb_internal_security_group
+  efs_security_group                = module.networking.efs_security_group
   vpc_id                            = module.networking.vpc_id
 }

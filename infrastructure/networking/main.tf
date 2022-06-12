@@ -15,6 +15,8 @@ resource "random_shuffle" "az_list" {
 
 resource "aws_vpc" "vpc-image-delivery-service" {
   cidr_block = var.cidr_block
+  enable_dns_hostnames = true
+  enable_dns_support = true
 
   tags = {
     Name = "vpc-image-delivery-service"
@@ -216,5 +218,25 @@ resource "aws_security_group" "security-group-alb-internal-image-delivery-servic
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+resource "aws_security_group" "security-group-efs-image-delivery-service" {
+  name        = "efs_sh"
+  description = "Allos inbound efs traffic from ec2"
+  vpc_id      = local.vpc_id
+
+  ingress {
+    security_groups = [aws_security_group.security-group-instance-image-delivery-service.id]
+    from_port = 2049
+    to_port   = 2049
+    protocol  = "tcp"
+  }
+
+  egress {
+    security_groups = [aws_security_group.security-group-instance-image-delivery-service.id]
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
   }
 }

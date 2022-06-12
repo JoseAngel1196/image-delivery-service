@@ -23,6 +23,10 @@ output "alb_internal_security_group" {
   value = aws_security_group.security-group-alb-internal-image-delivery-service.id
 }
 
+output "efs_security_group" {
+  value = aws_security_group.security-group-efs-image-delivery-service.id
+}
+
 output "vpc_id" {
   value = local.vpc_id
 }

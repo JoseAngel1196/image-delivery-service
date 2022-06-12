@@ -37,3 +37,7 @@ variable "application_server_security_group" {
 variable "alb_internal_security_group" {
   type = string
 }
+
+variable "efs_security_group" {
+  type = string
+}
